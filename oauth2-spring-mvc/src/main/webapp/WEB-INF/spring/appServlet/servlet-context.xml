@@ -18,7 +18,7 @@
 
     <!--以下是RedisSession相关配置-->
     <!--<beans:bean name="redisOperationsSessionRepository"-->
-          <!--class="org.springframework.session.dorg.springframework.session.data.McdRedisOperationsSessionRepositorytory">-->
+          <!--class="org.springframework.session.dorg.springframework.session.data.RedisOperationsSessionRepository">-->
         <!--<beans:constructor-arg ref="curAppId"/>-->
         <!--<beans:constructor-arg ref="mcdRedisConnectionFactory"></beans:constructor-arg>-->
         <!--<beans:property name="defaultMaxInactiveInterval" value="604800"></beans:property>-->

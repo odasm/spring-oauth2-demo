@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.web.filter.CompositeFilter;
 
 import javax.servlet.Filter;
@@ -55,6 +57,11 @@ public class OAuth2Configuration {
         filters.add(ssoFilter(github(), "/login/github"));
         filter.setFilters(filters);
         return filter;
+    }
+
+    @Bean(name = "csrfTokenRepository")
+    public CsrfTokenRepository getCsrfTokenRepository(){
+        return CookieCsrfTokenRepository.withHttpOnlyFalse();
     }
 
 

@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 import javax.servlet.Filter;
 
@@ -37,6 +37,11 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
     @Qualifier("loginUrlFilterEntryPoint")
     AuthenticationEntryPoint entryPoint;
 
+
+    @Autowired
+    @Qualifier("csrfTokenRepository")
+    CsrfTokenRepository csrfTokenRepository;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
@@ -49,8 +54,9 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
                 .anonymous()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(entryPoint).and().logout()
+                .logoutUrl("j_spring_security_logout")
                 .and().csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                .csrfTokenRepository(csrfTokenRepository).and()
                 .addFilterBefore(userLogInFilter, BasicAuthenticationFilter.class);
         // @formatter:on
     }
