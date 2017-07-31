@@ -16,7 +16,7 @@
         console.log(pages);
         var html = "";
         $.each(pages, function(i, page) {
-            html = '<div>With ' + page.name + ': <a href="' + page.loginPath + '">click here</a></div>';
+            html += '<div>With ' + page.name + ': <a href="' + page.loginPath + '">click here</a></div>';
         })
         $(".container").html(html);
     });
