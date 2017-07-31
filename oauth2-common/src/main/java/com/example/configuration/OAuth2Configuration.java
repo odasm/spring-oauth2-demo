@@ -33,7 +33,6 @@ import java.util.List;
 public class OAuth2Configuration {
 
 
-
     @Autowired
     OAuth2ClientContext clientContext;
 
@@ -54,13 +53,16 @@ public class OAuth2Configuration {
 
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
-        filters.add(ssoFilter(github(), "/login/github"));
+        for (OAuthWebSites oAuthWebSites : OAuthWebSites.values()) {
+            filters.add(ssoFilter(createOAuthClientResource(oAuthWebSites), oAuthWebSites.logInUrl));
+        }
+
         filter.setFilters(filters);
         return filter;
     }
 
     @Bean(name = "csrfTokenRepository")
-    public CsrfTokenRepository getCsrfTokenRepository(){
+    public CsrfTokenRepository getCsrfTokenRepository() {
         return CookieCsrfTokenRepository.withHttpOnlyFalse();
     }
 
@@ -113,17 +115,17 @@ public class OAuth2Configuration {
         }
     }
 
-    public ClientResources github() {
+    public ClientResources createOAuthClientResource(OAuthWebSites oAuthWebSites) {
         AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
-        client.setAccessTokenUri(token_url);
-        client.setClientId(Client_ID);
-        client.setClientSecret(Client_Secret);
-        client.setUserAuthorizationUri(authorization_base_url);
+        client.setAccessTokenUri(oAuthWebSites.tokenUrl);
+        client.setClientId(oAuthWebSites.clientId);
+        client.setClientSecret(oAuthWebSites.clientSecret);
+        client.setUserAuthorizationUri(oAuthWebSites.authorizationBaseUrl);
         client.setClientAuthenticationScheme(AuthenticationScheme.form);
-        ClientResources clientResources = new ClientResources("github");
+        ClientResources clientResources = new ClientResources(oAuthWebSites.name());
         clientResources.setClient(client);
         ResourceServerProperties resources = new ResourceServerProperties();
-        resources.setUserInfoUri(userInfo);
+        resources.setUserInfoUri(oAuthWebSites.userInfo);
         clientResources.setResource(resources);
         return clientResources;
     }

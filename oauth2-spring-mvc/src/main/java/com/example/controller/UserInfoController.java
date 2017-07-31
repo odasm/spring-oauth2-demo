@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserInfoController {
     @RequestMapping({"/current", "/me"})
     public Object user() {

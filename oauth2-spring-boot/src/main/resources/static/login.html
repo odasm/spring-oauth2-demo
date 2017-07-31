@@ -1,19 +1,24 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Demo</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
-<body ng-app="app" ng-controller="home as home">
+<body >
 <h1>Login</h1>
-<div class="container" ng-show="!home.authenticated">
-    <div>
-        With Facebook: <a href="/login/facebook">click here</a>
-    </div>
-    <div>
-        With Github: <a href="/login/github">click here</a>
-    </div>
+<div class="container">
 </div>
 </body>
+<script type="text/javascript">
+    $.get("spring/openData/loginPages", function(pages) {
+        console.log(pages);
+        var html = "";
+        $.each(pages, function(i, page) {
+            html = '<div>With ' + page.name + ': <a href="' + page.loginPath + '">click here</a></div>';
+        })
+        $(".container").html(html);
+    });
+</script>
 </html>
