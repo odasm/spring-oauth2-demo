@@ -16,7 +16,14 @@ public enum OAuthWebSites {
             "aaa93eb63de719f44358483733912895e1eb2416",
             "https://github.com/login/oauth/authorize",
             "https://api.github.com/user",
-            "/login/github");
+            "/login/github"),
+
+    SinaWeiBo("https://api.weibo.com/oauth2/access_token",
+                   "763558254",
+                   "1ccd9ae046e889eeadc4e065b80b996f",
+                   "https://api.weibo.com/oauth2/authorize",
+                   "https://api.weibo.com/2/users/show.json",
+                   "/login/sina");
     final String tokenUrl;
     final String clientId;
     final String clientSecret;
