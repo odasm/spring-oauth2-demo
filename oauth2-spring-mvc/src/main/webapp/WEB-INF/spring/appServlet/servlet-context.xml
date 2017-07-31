@@ -1,0 +1,33 @@
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:aop="http://www.springframework.org/schema/aop"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.example"/>
+
+    <context:property-placeholder location="classpath:conf.properties" />
+
+
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <annotation-driven/>
+
+    <!--以下是RedisSession相关配置-->
+    <!--<beans:bean name="redisOperationsSessionRepository"-->
+          <!--class="org.springframework.session.data.redis.McdRedisOperationsSessionRepository">-->
+        <!--<beans:constructor-arg ref="curAppId"/>-->
+        <!--<beans:constructor-arg ref="mcdRedisConnectionFactory"></beans:constructor-arg>-->
+        <!--<beans:property name="defaultMaxInactiveInterval" value="604800"></beans:property>-->
+    <!--</beans:bean>-->
+
+    <!-- 这个是Session策略过滤器，即将容器原有的Session持久化机制，代替为Spring的 Redis持久化Session机制。 -->
+    <!-- 注意，这个名字与 web.xml里的targetBean的下value是要一致的。 -->
+    <!--<beans:bean name="springSession" class="org.springframework.session.web.http.SessionRepositoryFilter">-->
+        <!--<beans:constructor-arg ref="redisOperationsSessionRepository"></beans:constructor-arg>-->
+    <!--</beans:bean>-->
+
+</beans:beans>

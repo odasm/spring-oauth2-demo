@@ -50,7 +50,7 @@ public class OAuth2Configuration {
 
     @Bean(name = "curAppId")
     public String getAppId() {
-        return Foundation.app().getAppId();
+        return "mainAppId";
     }
 
     @Bean(name = "userLogInFilter")
@@ -63,9 +63,14 @@ public class OAuth2Configuration {
         return filter;
     }
 
+
     private Filter ssoFilter(ClientResources client, String path) {
         OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
         OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), clientContext);
+        com.fasterxml.jackson.databind.ObjectMapper m;
+        com.fasterxml.jackson.core.JsonGenerator j;
+
+
         oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
         UserInfoTokenServices tokenServices = new CustomizeUserInfoTokenServices(client.getName(),
                 client.getResource().getUserInfoUri(),

@@ -1,6 +1,8 @@
 package com.example.configuration;
 
 
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
+
 import java.util.Map;
 
 /**
