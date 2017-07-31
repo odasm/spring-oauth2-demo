@@ -16,6 +16,12 @@ import java.io.IOException;
 @Configuration
 public class RedisConfiguration {
 
+    @Bean(name = "curAppId")
+    public String getAppId() {
+        return "mainAppId";
+    }
+
+
     @Bean(name = "mcdRedisConnectionFactory")
     public JedisConnectionFactory jedisConnectionFactory() throws IOException {
 

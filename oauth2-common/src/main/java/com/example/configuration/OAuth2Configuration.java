@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceS
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
@@ -31,8 +30,7 @@ import java.util.List;
 @Configuration
 public class OAuth2Configuration {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+
 
     @Autowired
     OAuth2ClientContext clientContext;
@@ -48,10 +46,6 @@ public class OAuth2Configuration {
         return new LoginUrlAuthenticationEntryPoint("/login.html");
     }
 
-    @Bean(name = "curAppId")
-    public String getAppId() {
-        return "mainAppId";
-    }
 
     @Bean(name = "userLogInFilter")
     public Filter userLogInFilter() {
@@ -77,7 +71,7 @@ public class OAuth2Configuration {
                 client.getClient().getClientId());
         tokenServices.setRestTemplate(oAuth2RestTemplate);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
-        oAuth2ClientAuthenticationFilter.setAuthenticationManager(authenticationManager);
+//        oAuth2ClientAuthenticationFilter.setAuthenticationManager(authenticationManager);
         return oAuth2ClientAuthenticationFilter;
     }
 

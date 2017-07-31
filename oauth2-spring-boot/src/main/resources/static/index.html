@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+    <title>----Test----</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
+<h1>Hello</h1>
+<p id="userInfo"></p>
+<a href="/j_spring_security_logout">LogOut</a>
+</body>
+<script type="text/javascript">
+    $.get("spring/user/current", function (result) {
+        console.log(result);
+        var user=JSON.stringify(result);
+        $("#userInfo").html(user);
+    });
+
+
+</script>
+</html>
